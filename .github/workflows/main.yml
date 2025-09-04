@@ -1,0 +1,82 @@
+name: Constellation API Tests
+ 
+on:
+
+  push:
+
+    branches: [main]
+
+  workflow_dispatch:
+
+  schedule:
+
+    - cron: '14 8 * * *'     # Every day at 08:14 UTC -> 01:44 PM IST
+ 
+jobs:
+
+  run-tests:
+
+    runs-on: ubuntu-latest
+ 
+    steps:
+
+      - name: Checkout Code
+
+        uses: actions/checkout@v3
+ 
+      - name: Setup Node
+
+        uses: actions/setup-node@v3
+
+        with:
+
+          node-version: '18'
+ 
+      - name: Cache npm
+
+        uses: actions/cache@v3
+
+        with:
+
+          path: ~/.npm
+
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+          restore-keys: |
+
+            ${{ runner.os }}-node-
+ 
+      - name: Install Newman
+
+        run: |
+
+          npm install -g newman
+
+          npm install -g newman-reporter-htmlextra
+ 
+      - name: Run Collection
+
+        run: |
+
+          mkdir -p newman
+
+          newman run Constellation-Regulatory-APIs-Dev2.postman_collection.json \
+
+            -e Constellation-DEV2.postman_environment.json \
+
+            -r cli,htmlextra \
+
+            --reporter-htmlextra-export newman/regulatory-report.html
+ 
+      - name: Upload Report
+
+        if: always()
+
+        uses: actions/upload-artifact@v4.6.2
+
+        with:
+
+          name: constellation-regulatory-report
+
+          path: newman/*.html
+ 
