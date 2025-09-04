@@ -5,7 +5,7 @@ on:
     branches: [main]         # Run workflow on pushes to 'main' branch
   workflow_dispatch:         # Allow manual trigger from GitHub UI
   schedule:
-    - cron: '11 8 * * *'     # Every day at 08:11 UTC -> 01:41 AM IST
+    - cron: '14 8 * * *'     # Every day at 08:14 UTC -> 01:44 AM IST
  
 jobs:
   run-tests:
@@ -27,8 +27,8 @@ jobs:
  
       - name: Run Collection
         run: |
-          newman run Constellation-Regulatory-APIs-Dev2.postman_collection \
-            -e Constellation-DEV2.postman_environment \
+          newman run Constellation-Regulatory-APIs-Dev2.postman_collection.json \
+            -e Constellation-DEV2.postman_environment.json \
             -r cli,htmlextra
  
       - name: Upload Report
