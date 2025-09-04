@@ -19,7 +19,7 @@
 								"exec": [
 									"console.log(\"The Access Token Is Generated\");\r",
 									"\r",
-									"let token = pm.response.text();\r",
+									"var token = pm.response.text();\r",
 									"\r",
 									"token = token.replace(/\"/g, \"\");\r",
 									"\r",
