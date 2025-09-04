@@ -1,0 +1,39 @@
+name: Run API Tests
+ 
+on:
+  push:
+    branches: [main]         # Run workflow on pushes to 'main' branch
+  workflow_dispatch:         # Allow manual trigger from GitHub UI
+  schedule:
+    - cron: '11 8 * * *'     # Every day at 08:11 UTC -> 01:41 AM IST
+ 
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest   # Runner OS
+ 
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+ 
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+ 
+      - name: Install Newman
+        run: |
+          npm install -g newman
+          npm install -g newman-reporter-htmlextra
+ 
+      - name: Run Collection
+        run: |
+          newman run Constellation-Regulatory-APIs-Dev2.postman_collection \
+            -e Constellation-DEV2.postman_environment \
+            -r cli,htmlextra
+ 
+      - name: Upload Report
+        if: always()
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: newman-html-report
+          path: newman/*.html
