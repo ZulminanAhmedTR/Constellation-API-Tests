@@ -6,7 +6,2484 @@
 		"_exporter_id": "48172299",
 		"_collection_link": "https://zulminan-ahmed-ed689875-5510487.postman.co/workspace/zulminan-ahmed-ed689875's-Works~cbd811db-641d-4d5e-8e1a-4646ebad23b9/collection/48172299-47ef789d-b068-4043-8e6e-f5822fb5ac94?action=share&source=collection_link&creator=48172299"
 	},
-	"item": [],
+	"item": [
+		{
+			"name": "Login API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Generating the Access Token\");\r",
+							"\r",
+							"var token = pm.response.text();\r",
+							"\r",
+							"token = token.replace(/\"/g, \"\");\r",
+							"\r",
+							"token = \"UDSLongToken \"+token;\r",
+							"\r",
+							"pm.environment.set(\"ACCESS_TOKEN\",token);\r",
+							"\r",
+							"console.log(\"Access Token Is:\");\r",
+							"\r",
+							"console.log(token);\r",
+							"\r",
+							"pm.test(\"Login API verify if the status code is 200\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.to.have.status(200));\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"username\":\"admin@Constellation.dev\",\n\"password\":\"P@sswordW6C\"\n \n \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/home-security/api/security/v2/sessions/fromusermodel/no",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"home-security",
+						"api",
+						"security",
+						"v2",
+						"sessions",
+						"fromusermodel",
+						"no"
+					]
+				},
+				"description": "Generated from cURL: curl --location --request POST 'https://dev2.onesourcetax.com/dev2/home-security/api/security/v2/sessions/fromusermodel/no' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n\"username\":\"admin@Constellation.dev\",\n\"password\":\"P@sswordW6C\"\n \n \n}'"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Positive Tests Status Code Verification)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Positive Test Verify Status Code\");\r",
+							" \r",
+							"var jsonData;\r",
+							"\r",
+							"try {\r",
+							"\r",
+							"    jsonData = pm.response.json();\r",
+							"\r",
+							"} catch (e) {\r",
+							"\r",
+							"    jsonData = null;\r",
+							"\r",
+							"}\r",
+							" \r",
+							"\r",
+							"pm.test(\"Positive test verify if the Status code is 200\", function () {\r",
+							"\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Positive Tests Response is valid JSON)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Positive Tests for Response is valid JSON\");\r",
+							" \r",
+							"var jsonData;\r",
+							"\r",
+							"try {\r",
+							"\r",
+							"    jsonData = pm.response.json();\r",
+							"\r",
+							"} catch (e) {\r",
+							"\r",
+							"    jsonData = null;\r",
+							"\r",
+							"}\r",
+							" \r",
+							"\r",
+							"pm.test(\"Positive test Response is valid JSON\", function () {\r",
+							"\r",
+							"    pm.response.to.be.json;\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Positive Test Response should not be empty)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Positive Tests for Get Regulatory Updates Response should not be empty\");\r",
+							" \r",
+							"var jsonData;\r",
+							"\r",
+							"try {\r",
+							"\r",
+							"    jsonData = pm.response.json();\r",
+							"\r",
+							"} catch (e) {\r",
+							"\r",
+							"    jsonData = null;\r",
+							"\r",
+							"}\r",
+							" \r",
+							"\r",
+							"pm.test(\"Positive test Response should not be empty\", function () {\r",
+							"\r",
+							"    pm.expect(jsonData).to.not.be.null;\r",
+							"\r",
+							"    pm.expect(jsonData.length, \"Expected at least 1 record\").to.be.above(0);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Positive Test Each object contains mandatory fields)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Positive Tests for Get Regulatory Updates Each object contains mandatory fields\");\r",
+							" \r",
+							"var jsonData;\r",
+							"\r",
+							"try {\r",
+							"\r",
+							"    jsonData = pm.response.json();\r",
+							"\r",
+							"} catch (e) {\r",
+							"\r",
+							"    jsonData = null;\r",
+							"\r",
+							"}\r",
+							" \r",
+							"\r",
+							"pm.test(\"Positive test Each object contains mandatory fields\", function () {\r",
+							"\r",
+							"    jsonData.forEach((item, index) => {\r",
+							"\r",
+							"        pm.expect(item, `Missing 'id' at index ${index}`).to.have.property(\"id\");\r",
+							"\r",
+							"        pm.expect(item).to.have.property(\"dateAdded\");\r",
+							"\r",
+							"        pm.expect(item).to.have.property(\"effectiveDate\");\r",
+							"\r",
+							"        pm.expect(item).to.have.property(\"status\");\r",
+							"\r",
+							"        pm.expect(item).to.have.property(\"jurisdiction\");\r",
+							"\r",
+							"        pm.expect(item).to.have.property(\"title\");\r",
+							"\r",
+							"    });\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Positive Test Field types are correct)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Positive Tests for Get Regulatory Updates Field types are correct\");\r",
+							" \r",
+							"var jsonData;\r",
+							"\r",
+							"try {\r",
+							"\r",
+							"    jsonData = pm.response.json();\r",
+							"\r",
+							"} catch (e) {\r",
+							"\r",
+							"    jsonData = null;\r",
+							"\r",
+							"}\r",
+							" \r",
+							"pm.test(\"Positive test Field types are correct\", function () {\r",
+							"\r",
+							"    jsonData.forEach((item, index) => {\r",
+							"\r",
+							"        pm.expect(item.id, `id should be number at index ${index}`).to.be.a(\"number\");\r",
+							"\r",
+							"        pm.expect(item.status, `status should be string at index ${index}`).to.be.a(\"string\");\r",
+							"\r",
+							"        pm.expect(item.jurisdiction, `jurisdiction should be string at index ${index}`).to.be.a(\"string\");\r",
+							"\r",
+							"        pm.expect(item.title, `title should be string at index ${index}`).to.be.a(\"string\");\r",
+							"\r",
+							"    });\r",
+							"\r",
+							"});\r",
+							"\r",
+							" "
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Positive Test dateAdded and effectiveDate follow correct format)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Positive Tests for Get Regulatory Updates dateAdded and effectiveDate follow correct format\");\r",
+							" \r",
+							"var jsonData;\r",
+							"\r",
+							"try {\r",
+							"\r",
+							"    jsonData = pm.response.json();\r",
+							"\r",
+							"} catch (e) {\r",
+							"\r",
+							"    jsonData = null;\r",
+							"\r",
+							"}\r",
+							" \r",
+							"\r",
+							"pm.test(\"dateAdded and effectiveDate follow correct format\", function () {\r",
+							"\r",
+							"    jsonData.forEach((item, index) => {\r",
+							"\r",
+							"        pm.expect(item.dateAdded, `Invalid dateAdded at index ${index}`).to.match(/^\\d{4}-\\d{2}-\\d{2}T/);\r",
+							"\r",
+							"        pm.expect(item.effectiveDate, `Invalid effectiveDate at index ${index}`).to.match(/^\\d{4}-\\d{2}-\\d{2}T/);\r",
+							"\r",
+							"    });\r",
+							"\r",
+							"});\r",
+							"\r",
+							" "
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Negative Test year Param Missing)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Negative Test - Year param missing\");\r",
+							" \r",
+							"var yearParam = pm.request.url.query.find(q => q.key === \"year\");\r",
+							"var yearValue = yearParam ? yearParam.value : null;\r",
+							" \r",
+							"pm.test(\"Year param missing should return 400\", function () {\r",
+							"    pm.expect(yearValue, \"Year param should be missing in this request\").to.be.null;\r",
+							"    pm.expect(pm.response.code, \"Expected 400 when year param is missing\").to.be.eql(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Negative Test Empty year)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Negative Test - Empty Year Param\");\r",
+							" \r",
+							"var yearParam = pm.request.url.query.find(q => q.key === \"year\");\r",
+							"var yearValue = yearParam ? yearParam.value : null;\r",
+							" \r",
+							"console.log(\"Extracted year param value => [\" + yearValue + \"]\");\r",
+							" \r",
+							"pm.test(\"Empty year should return 400\", function () {\r",
+							"    pm.expect(yearValue, \"Year param value should be empty in this request\").to.eql(\"\");\r",
+							"    pm.expect(pm.response.code, \"Expected 400 when year is empty\").to.be.eql(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Negative Test Non Numeric Year)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Negative Test - Non-numeric Year Param\");\r",
+							" \r",
+							"var yearParam = pm.request.url.query.find(q => q.key === \"year\");\r",
+							"var yearValue = yearParam ? yearParam.value : null;\r",
+							" \r",
+							"pm.test(\"Non-numeric year should return 400\", function () {\r",
+							"    pm.expect(yearValue, \"Year param value should be non-numeric in this request\").to.match(/^[^\\d]+$/);\r",
+							"    pm.expect(pm.response.code, \"Expected 400 when year is non-numeric\").to.be.eql(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=abcd",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "abcd",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Negative Test Year Not 4 Digits e.g:, 202, 12345)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Negative Test - Year Not 4 Digits Param (e.g. 202, 12345)\");\r",
+							" \r",
+							"var yearParam = pm.request.url.query.find(q => q.key === \"year\");\r",
+							"var yearValue = yearParam ? yearParam.value : null;\r",
+							" \r",
+							"pm.test(\"Year not 4 digits should return 400\", function () {\r",
+							"    pm.expect(yearValue, \"Year param should contain only digits\").to.match(/^\\d+$/);\r",
+							"    pm.expect(yearValue.length, \"Year length must not be 4 digits\").to.not.eql(4);\r",
+							"    pm.expect(pm.response.code, \"Expected 400 when year is not 4 digits\").to.be.eql(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=12345",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "12345",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Negative Test Year Out of Range less than 2018 or greater than 2025)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Negative Test - Year Out of Range (<2018 or >2025)\");\r",
+							" \r",
+							"var yearParam = pm.request.url.query.find(q => q.key === \"year\");\r",
+							"var yearValue = yearParam ? yearParam.value : null;\r",
+							"var yearNum = parseInt(yearValue, 10);\r",
+							" \r",
+							"pm.test(\"Year out of valid range should return 400\", function () {\r",
+							"    pm.expect(yearValue, \"Year param should be 4 digits\").to.match(/^\\d{4}$/);\r",
+							"    pm.expect((yearNum < 2018 || yearNum > 2025), \"Year must be outside 2018–2025 range\").to.be.true;\r",
+							"    pm.expect(pm.response.code, \"Expected 400 when year is out of valid range\").to.be.eql(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2017",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2017",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Negative Test Missing View Param)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Negative Test For Get Regulatory Updates Year & Month View Missing View Param\");\r",
+							"\r",
+							"pm.test(\"Missing view param should return 400 Status Code\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.to.have.status(400));\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify the detail filed error message\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.json().detail).to.be.eql(\"Required parameter 'view' is not present.\");\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?=&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Security Test Missing Token)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Security Test For Get Regulatory Updates Year & Month View test Missing Access Token\");\r",
+							"\r",
+							"pm.test(\"Missing Access token should return 401 Status Code\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.to.have.status(401));\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Missing token Verify the code in the response field has a message 'UNAUTHORIZED'\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.json().error.code).to.be.eql(\"UNAUTHORIZED\");\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify the missing token error message\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.json().error.message).to.be.eql(\"INVALID_AUTHENTICATION: Invalid Authorization header value.\");\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Security Test Wrong Token)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Security Test For Get Regulatory Updates Year & Month View test with Wrong Access Token\");\r",
+							"\r",
+							"pm.test(\"Invalid Access token should return 401 Status Code\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.to.have.status(401));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Wrong token verify the code in the response field has a message 'UNAUTHORIZED'\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.json().error.code).to.be.eql(\"UNAUTHORIZED\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify the invalid token error message\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.json().error.message).to.be.eql(\"INVALID_AUTHENTICATION: Token was invalidated by the server\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "UDSLongToken DEV2-Chi_VG8cx_6RX1_nf-poO241jF3q8JiySTORrbyzzztvmuIxNODLRwsyXg6s73eS",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Security Test Expired Token)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Security Test For Get Regulatory Updates Year & Month View test with Expired Access Token\");\r",
+							"\r",
+							"pm.test(\"Expired Access token should return 401 Status Code\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.to.have.status(401));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Expired token Verify the code in the response field has a message 'UNAUTHORIZED'\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.json().error.code).to.be.eql(\"UNAUTHORIZED\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify the expired access token error message\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.json().error.message).to.be.eql(\"INVALID_AUTHENTICATION: Token was invalidated by the server\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "UDSLongToken DEV2--4vRfEBZGfTpgo3bQjh1Dpn2oMbL2Gjtk0I_Muo8LqgYeLhiosm-Qz4SjNh8HvrW",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Security Test No Authorization Header)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Security Test For Get Regulatory Updates Year & Month View test with No Authorization Header\");\r",
+							"\r",
+							"console.log(\"Running Security Test - Unauthorized Access\");\r",
+							" \r",
+							"var hasAuth = pm.request.headers.has(\"Authorization\");\r",
+							" \r",
+							"pm.test(\"Unauthorized access should return 401/403\", function () {\r",
+							"    pm.expect(hasAuth, \"Authorization header should not be present in this request\").to.be.false;\r",
+							"    pm.expect(pm.response.code, \"Expected 401/403 when no Authorization header\").to.be.oneOf([401, 403]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"No Authorization header verify the code in the response field has a message 'UNAUTHORIZED'\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.json().error.code).to.be.eql(\"UNAUTHORIZED\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify the no Authorization header error message\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.json().error.message).to.be.eql(\"INVALID_AUTHENTICATION: Invalid Authorization header value.\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Security Test Response Should Not Contain Sensitive Data)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running ecurity Test For Get Regulatory Updates Year & Month View test Response Should Not Contain Sensitive Data\");\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response should not expose sensitive data\", function () {\r",
+							"    var jsonData = {};\r",
+							"    try \r",
+							"    { \r",
+							"        jsonData = pm.response.json(); \r",
+							"        \r",
+							"    } \r",
+							"    catch(e) \r",
+							"    {\r",
+							"        \r",
+							"    }\r",
+							" \r",
+							"    var responseText = JSON.stringify(jsonData);\r",
+							"    pm.expect(responseText, \"Response should not contain password/token/secret\").to.not.include(\"password\");\r",
+							"    pm.expect(responseText, \"Response should not contain password/token/secret\").to.not.include(\"token\");\r",
+							"    pm.expect(responseText, \"Response should not contain password/token/secret\").to.not.include(\"secret\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Boundary Test Single Year Request)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Boundary Test For Get Regulatory Updates Year & Month View Single Year Request\");\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Boundary test single year request Verify the status code is 200\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.to.have.status(200));\r",
+							"});\r",
+							"\r",
+							" \r",
+							"pm.test(\"Boundary test single year request Response is an array\", function () {\r",
+							"        pm.expect(jsonData).to.be.an(\"array\");\r",
+							"});\r",
+							" \r",
+							"pm.test(\"Boundary test single year request Each object contains required fields\", function () {\r",
+							"    jsonData.forEach(item => {\r",
+							"        pm.expect(item).to.have.property(\"id\");\r",
+							"        pm.expect(item).to.have.property(\"dateAdded\");\r",
+							"        pm.expect(item).to.have.property(\"effectiveDate\");\r",
+							"        pm.expect(item).to.have.property(\"jurisdiction\");\r",
+							"        pm.expect(item).to.have.property(\"title\");\r",
+							"    });\r",
+							"});\r",
+							" \r",
+							"pm.test(\"Boundary test single year request All items belong to requested year 2025\", function () {\r",
+							"    jsonData.forEach(item => {\r",
+							"        let year = new Date(item.effectiveDate).getFullYear();\r",
+							"        pm.expect(year).to.eql(2025);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Boundary Test Large Year Range)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Boundary Test - Large Year Range\");\r",
+							" \r",
+							"var jsonData = pm.response.json();\r",
+							"var requestUrl = pm.request.url.toString();\r",
+							"var yearParam = requestUrl.split(\"year=\")[1];\r",
+							"var requestedYears = yearParam.split(\",\").map(function(y) { return y.trim(); });\r",
+							"var years = jsonData.map(function(item) { return new Date(item.dateAdded).getFullYear().toString(); });\r",
+							"var uniqueYears = Array.from(new Set(years));\r",
+							"var currentYear = new Date().getFullYear();\r",
+							" \r",
+							"console.log(\"Requested years:\", requestedYears);\r",
+							"console.log(\"Unique years in response:\", uniqueYears);\r",
+							"console.log(\"Current year (max allowed):\", currentYear);\r",
+							" \r",
+							"pm.test(\"Boundary test large year range Verify status code is 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							" \r",
+							"pm.test(\"Boundary test large year range All requested past/current years should be present in response\", function () {\r",
+							"    requestedYears.forEach(function(year) {\r",
+							"        var yearNum = parseInt(year);\r",
+							"        var isPastOrCurrent = yearNum <= currentYear;\r",
+							" \r",
+							"        pm.expect(isPastOrCurrent, \"Requested year must not be in the future\").to.be.true;\r",
+							"        pm.expect(uniqueYears, \"Year \" + year + \" is missing in response\").to.include(year);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2022,2023,2024,2025",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2022,2023,2024,2025",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Boundary Test Lower Boundary)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Boundary Test - Lower Boundary Year (2018)\");\r",
+							" \r",
+							"var yearParam = pm.request.url.query.find(function(q) { return q.key === \"year\"; });\r",
+							"\r",
+							"var yearValue = yearParam ? yearParam.value : null;\r",
+							" \r",
+							"console.log(\"Extracted year param value => [\" + yearValue + \"]\");\r",
+							" \r",
+							"pm.test(\"Year at lower boundary (2018) should return 200\", function () {\r",
+							"\r",
+							"    pm.expect(yearValue, \"Expected year param to be 2018\").to.eql(\"2018\");\r",
+							"\r",
+							"    pm.expect(pm.response.code, \"Expected 200 for year=2018\").to.eql(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2018",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2018",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Boundary Test Upper Boundary)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Boundary Test - Upper Boundary Year (2025)\");\r",
+							" \r",
+							"var yearParam = pm.request.url.query.find(function(q) { return q.key === \"year\"; });\r",
+							"var yearValue = yearParam ? yearParam.value : null;\r",
+							" \r",
+							"console.log(\"Extracted year param value => [\" + yearValue + \"]\");\r",
+							" \r",
+							"pm.test(\"Year at upper boundary (2025) should return 200\", function () {\r",
+							"    pm.expect(yearValue, \"Expected year param to be 2025\").to.eql(\"2025\");\r",
+							"    pm.expect(pm.response.code, \"Expected 200 for year=2025\").to.eql(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Boundary Test Just Below Lower Boundary)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Boundary Test - Year Just Below Lower Boundary (2017)\");\r",
+							" \r",
+							"var yearParam = pm.request.url.query.find(function(q) { return q.key === \"year\"; });\r",
+							"var yearValue = yearParam ? yearParam.value : null;\r",
+							" \r",
+							"console.log(\"Extracted year param value => [\" + yearValue + \"]\");\r",
+							" \r",
+							"pm.test(\"Year just below lower boundary (2017) should return 400\", function () {\r",
+							"    pm.expect(yearValue, \"Expected year param to be 2017\").to.eql(\"2017\");\r",
+							"    pm.expect(pm.response.code, \"Expected 400 for year=2017\").to.be.eql(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2017",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2017",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Boundary Test Just Above Upper Boundary)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Boundary Test - Year Just Above Upper Boundary (2026)\");\r",
+							" \r",
+							"var yearParam = pm.request.url.query.find(function(q) { return q.key === \"year\"; });\r",
+							"var yearValue = yearParam ? yearParam.value : null;\r",
+							" \r",
+							"console.log(\"Extracted year param value => [\" + yearValue + \"]\");\r",
+							" \r",
+							"pm.test(\"Year just above upper boundary (2026) should return 400\", function () {\r",
+							"    pm.expect(yearValue, \"Expected year param to be 2026\").to.eql(\"2026\");\r",
+							"    pm.expect(pm.response.code, \"Expected 400 for year=2026\").to.be.eql(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Performance Test Response Time Threshold)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Performance Test For Get Regulatory Updates Year & Month View Response Time Threshold\");\r",
+							"\r",
+							"pm.test(\"Response time threshold verify the status code is 200\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.to.have.status(200));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is under 2000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Performance Test Payload size should not be excessive)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Performance Test For Get Regulatory Updates Year & Month View Payload size should not be excessive\");\r",
+							"\r",
+							"pm.test(\"Response size should be within 1 MB\", function () {\r",
+							"    let sizeInKB = pm.response.responseSize / 1024;\r",
+							"    pm.expect(sizeInKB, \"Response too large!\").to.be.below(1024);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Performance Test Large Payload Handling)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Performance Test For Get Regulatory Updates Year & Month View Large Payload Handling\");\r",
+							"\r",
+							"var jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"large payload handling verify the status code is 200\",function()\r",
+							"{\r",
+							"    pm.expect(pm.response.to.have.status(200));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Large payload returns valid JSON array\", function () {\r",
+							"    \r",
+							"    pm.expect(jsonData).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData.length).to.be.above(0);\r",
+							"});\r",
+							" \r",
+							"pm.test(\"large payload handling All items in large payload have required fields\", function () {\r",
+							"    \r",
+							"    jsonData.forEach(item => {\r",
+							"        pm.expect(item).to.have.property(\"id\");\r",
+							"        pm.expect(item).to.have.property(\"dateAdded\");\r",
+							"        pm.expect(item).to.have.property(\"effectiveDate\");\r",
+							"        pm.expect(item).to.have.property(\"jurisdiction\");\r",
+							"        pm.expect(item).to.have.property(\"title\");\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Functional Tests)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Functional Tests For Get Regulatory Updates Year & Month View\");\r",
+							" \r",
+							"var jsonData = {};\r",
+							"try { jsonData = pm.response.json(); } catch(e) {\r",
+							"    jsonData = null;\r",
+							"}\r",
+							" \r",
+							"pm.test(\"Functional test Response must be valid JSON\", function () {\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							" \r",
+							"pm.test(\"Functional test Response should not be empty\", function () {\r",
+							"    pm.expect(jsonData, \"Response body should not be null\").to.not.be.null;\r",
+							"    pm.expect(Array.isArray(jsonData), \"Response must be an array\").to.be.true;\r",
+							"    pm.expect(jsonData.length, \"Expected non-empty array\").to.be.above(0);\r",
+							"});\r",
+							" \r",
+							"pm.test(\"Functional test Each object must contain mandatory fields\", function () {\r",
+							"    jsonData.forEach(function(item, index) {\r",
+							"        pm.expect(item, \"Missing 'id' at index \" + index).to.have.property(\"id\");\r",
+							"        pm.expect(item).to.have.property(\"dateAdded\");\r",
+							"        pm.expect(item).to.have.property(\"effectiveDate\");\r",
+							"        pm.expect(item).to.have.property(\"jurisdiction\");\r",
+							"        pm.expect(item).to.have.property(\"title\");\r",
+							"    });\r",
+							"});\r",
+							" \r",
+							"pm.test(\"Functional test dateAdded and effectiveDate must follow YYYY-MM-DD format\", function () {\r",
+							"    jsonData.forEach(function(item, index) {\r",
+							"        pm.expect(item.dateAdded, \"Invalid dateAdded at index \" + index).to.match(/^\\d{4}-\\d{2}-\\d{2}T/);\r",
+							"        pm.expect(item.effectiveDate, \"Invalid effectiveDate at index \" + index).to.match(/^\\d{4}-\\d{2}-\\d{2}T/);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Regulatory Updates Year & Month View (Validate JSON Schema)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"console.log(\"Running Schema Validation Test For Get Regulatory Updates Year & Month View\");\r",
+							" \r",
+							"var jsonData;\r",
+							"try {\r",
+							"    jsonData = pm.response.json();\r",
+							"} catch (e) {\r",
+							"    jsonData = null;\r",
+							"}\r",
+							" \r",
+							"pm.test(\"Validate JSON Schema Response should be valid JSON array\", function () {\r",
+							"    pm.expect(jsonData, \"Response is not valid JSON\").to.not.be.null;\r",
+							"    pm.expect(Array.isArray(jsonData), \"Response must be an array\").to.be.true;\r",
+							"});\r",
+							" \r",
+							"pm.test(\"Validate JSON Schema Each object should match schema\", function () {\r",
+							"    jsonData.forEach(function(item, index) {\r",
+							"       \r",
+							"        pm.expect(item, \"Missing 'id' at index \" + index).to.have.property(\"id\");\r",
+							"        pm.expect(item).to.have.property(\"dateAdded\");\r",
+							"        pm.expect(item).to.have.property(\"effectiveDate\");\r",
+							"        pm.expect(item).to.have.property(\"status\");\r",
+							"        pm.expect(item).to.have.property(\"jurisdiction\");\r",
+							"        pm.expect(item).to.have.property(\"title\");\r",
+							" \r",
+							"        pm.expect(item.id, \"id should be number at index \" + index).to.be.a(\"number\");\r",
+							"        pm.expect(item.status, \"status should be string at index \" + index).to.be.a(\"string\");\r",
+							"        pm.expect(item.jurisdiction, \"jurisdiction should be string at index \" + index).to.be.a(\"string\");\r",
+							"        pm.expect(item.title, \"title should be string at index \" + index).to.be.a(\"string\");\r",
+							" \r",
+							"        pm.expect(item.dateAdded, \"Invalid dateAdded at index \" + index).to.match(/^\\d{4}-\\d{2}-\\d{2}T/);\r",
+							"        pm.expect(item.effectiveDate, \"Invalid effectiveDate at index \" + index).to.match(/^\\d{4}-\\d{2}-\\d{2}T/);\r",
+							"    });\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{ACCESS_TOKEN}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025,2026",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"constellation-ui",
+						"api",
+						"v1",
+						"regulatory-updates",
+						"year-view"
+					],
+					"query": [
+						{
+							"key": "view",
+							"value": "your",
+							"description": "Defines the view type"
+						},
+						{
+							"key": "forecast",
+							"value": "multi-year",
+							"description": "Types of forecast (multi-year/yearly)"
+						},
+						{
+							"key": "year",
+							"value": "2025,2026",
+							"description": "Comma-separated list of years"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
 	"event": [
 		{
 			"listen": "prerequest",
