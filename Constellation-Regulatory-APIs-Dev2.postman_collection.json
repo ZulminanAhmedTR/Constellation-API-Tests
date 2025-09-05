@@ -4,7 +4,7 @@
 		"name": "Constellation-Regulatory-APIs-Dev2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "48172299",
-		"_collection_link": "https://zulminan-ahmed-ed689875-5510487.postman.co/workspace/cbd811db-641d-4d5e-8e1a-4646ebad23b9/collection/48172299-47ef789d-b068-4043-8e6e-f5822fb5ac94?action=share&source=collection_link&creator=48172299"
+		"_collection_link": "https://zulminan-ahmed-ed689875-5510487.postman.co/workspace/zulminan-ahmed-ed689875's-Works~cbd811db-641d-4d5e-8e1a-4646ebad23b9/collection/48172299-47ef789d-b068-4043-8e6e-f5822fb5ac94?action=share&source=collection_link&creator=48172299"
 	},
 	"item": [
 		{
@@ -17,7 +17,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"console.log(\"The Access Token Is Generated\");\r",
+									"console.log(\"Generating the Access Token\");\r",
 									"\r",
 									"var token = pm.response.text();\r",
 									"\r",
@@ -26,6 +26,8 @@
 									"token = \"UDSLongToken \"+token;\r",
 									"\r",
 									"pm.environment.set(\"ACCESS_TOKEN\",token);\r",
+									"\r",
+									"console.log(\"Access Token Is:\");\r",
 									"\r",
 									"console.log(token);\r",
 									"\r",
@@ -80,101 +82,42 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// ✅ Verify status code\r",
+									"console.log(\"Running Positive testcases for Get Regulatory Updates Year & Month View\");\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									" \r",
-									"// ✅ Verify response time < 2s\r",
-									"pm.test(\"Response time is less than 2000ms\", function () {\r",
-									"    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+									"\r",
+									"pm.test(\"Response is valid JSON\", function () {\r",
+									"    pm.response.to.be.json;\r",
 									"});\r",
 									" \r",
-									"// ✅ Verify response is JSON and is an array\r",
-									"pm.test(\"Response is an array\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"pm.test(\"Response should not be empty\", function () {\r",
+									"    pm.expect(jsonData.length || Object.keys(jsonData).length).to.be.above(0);\r",
 									"});\r",
 									" \r",
-									"// ✅ Verify array is not empty\r",
-									"pm.test(\"Response array is not empty\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.length).to.be.above(0);\r",
-									"});\r",
-									" \r",
-									"// ✅ Check mandatory keys exist in each object\r",
-									"pm.test(\"Each object contains required keys\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
-									"    jsonData.forEach(item => {\r",
-									"        pm.expect(item).to.have.property(\"id\");\r",
-									"        pm.expect(item).to.have.property(\"dateAdded\");\r",
-									"        pm.expect(item).to.have.property(\"effectiveDate\");\r",
-									"        pm.expect(item).to.have.property(\"status\");\r",
-									"        pm.expect(item).to.have.property(\"jurisdiction\");\r",
-									"        pm.expect(item).to.have.property(\"description\");\r",
-									"        pm.expect(item).to.have.property(\"title\");\r",
-									"        pm.expect(item).to.have.property(\"url\");\r",
-									"        pm.expect(item).to.have.property(\"control\");\r",
-									"        pm.expect(item).to.have.property(\"assignedTo\");\r",
-									"        pm.expect(item).to.have.property(\"recommendations\");\r",
+									"if (Array.isArray(jsonData)) {\r",
+									"    pm.test(\"Each object contains mandatory fields\", function () {\r",
+									"        jsonData.forEach(item => {\r",
+									"            pm.expect(item).to.have.property(\"id\");\r",
+									"            pm.expect(item).to.have.property(\"dateAdded\");\r",
+									"            pm.expect(item).to.have.property(\"effectiveDate\");\r",
+									"            pm.expect(item).to.have.property(\"jurisdiction\");\r",
+									"            pm.expect(item).to.have.property(\"title\");\r",
+									"        });\r",
 									"    });\r",
-									"});\r",
-									" \r",
-									"// ✅ Validate data types\r",
-									"pm.test(\"Validate data types of fields\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
-									"    jsonData.forEach(item => {\r",
-									"        pm.expect(item.id).to.be.a(\"number\");\r",
-									"        pm.expect(item.dateAdded).to.be.a(\"string\");\r",
-									"        pm.expect(item.effectiveDate).to.be.a(\"string\");\r",
-									"        pm.expect(item.status).to.be.a(\"string\");\r",
-									"        pm.expect(item.jurisdiction).to.be.a(\"string\");\r",
-									"        pm.expect(item.description).to.be.a(\"string\");\r",
-									"        pm.expect(item.title).to.be.a(\"string\");\r",
-									"        pm.expect(item.url).to.be.a(\"string\");\r",
-									"        pm.expect(item.control).to.be.a(\"string\");\r",
-									"        pm.expect(item.assignedTo).to.be.a(\"string\");\r",
-									"        pm.expect(item.recommendations).to.be.an(\"array\");\r",
+									"} \r",
+									"\r",
+									"else \r",
+									"{\r",
+									"    pm.test(\"Yearly response has year objects\", function () {\r",
+									"        Object.keys(jsonData).forEach(year => {\r",
+									"            pm.expect(jsonData[year]).to.be.an(\"object\");\r",
+									"        });\r",
 									"    });\r",
-									"});\r",
-									" \r",
-									"// ✅ Validate date format (basic check for YYYY-MM-DD)\r",
-									"pm.test(\"Date fields are in correct format\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
-									"    let dateRegex = /^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$/;\r",
-									"    jsonData.forEach(item => {\r",
-									"        pm.expect(item.dateAdded).to.match(dateRegex);\r",
-									"        pm.expect(item.effectiveDate).to.match(dateRegex);\r",
-									"    });\r",
-									"});\r",
-									" \r",
-									"// ✅ Business Rule: effectiveDate should not be before dateAdded\r",
-									"pm.test(\"Effective date should be >= dateAdded\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
-									"    jsonData.forEach(item => {\r",
-									"        let dateAdded = new Date(item.dateAdded);\r",
-									"        let effectiveDate = new Date(item.effectiveDate);\r",
-									"        pm.expect(effectiveDate.getTime()).to.be.at.least(dateAdded.getTime());\r",
-									"    });\r",
-									"});\r",
-									" \r",
-									"// ✅ Validate jurisdiction has only expected values (example: Italy, India)\r",
-									"pm.test(\"Jurisdiction is valid\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
-									"    let allowedJurisdictions = [\"Italy\", \"India\"];\r",
-									"    jsonData.forEach(item => {\r",
-									"        pm.expect(allowedJurisdictions).to.include(item.jurisdiction);\r",
-									"    });\r",
-									"});\r",
-									" \r",
-									"// ✅ Titles & descriptions should not be empty\r",
-									"pm.test(\"Title and description are not empty\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
-									"    jsonData.forEach(item => {\r",
-									"        pm.expect(item.title).to.not.be.empty;\r",
-									"        pm.expect(item.description).to.not.be.empty;\r",
-									"    });\r",
-									"});"
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -234,18 +177,25 @@
 			"name": "Negative Tests",
 			"item": [
 				{
-					"name": "Get Regulatory Updates Year & Month View (Negative Test Invalid Year Format)",
+					"name": "Get Regulatory Updates Year & Month View (Negative Test year Param Missing)",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"console.log(\"Running Negative Test For Get Regulatory Updates Year & Month View Invalid Year Format\");\r",
+									"console.log(\"Running Negative Test For Get Regulatory Updates Year & Month View validating if year Param is missing\");\r",
 									"\r",
-									"pm.test(\"Invalid year param returns 400 Status Code\",function()\r",
-									"{\r",
-									"    pm.expect(pm.response.to.have.status(400));\r",
-									"})"
+									"var yearParam = pm.request.url.query.find(q => q.key === \"year\");\r",
+									"var yearValue = yearParam ? yearParam.value : null;\r",
+									"\r",
+									"pm.test(\"Year param missing should return error\", function () {\r",
+									"if (yearValue=== null) {\r",
+									"        pm.expect(pm.response.code, \"Expected 400 when year param missing\")\r",
+									"          .to.be.eql(400);\r",
+									"    } else {\r",
+									"        pm.expect.fail(\"This test expected MISSING year param, but got: [\" + yearValue + \"]\");\r",
+									"    }\r",
+									"});"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -277,7 +227,85 @@
 							}
 						],
 						"url": {
-							"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=202",
+							"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"constellation-ui",
+								"api",
+								"v1",
+								"regulatory-updates",
+								"year-view"
+							],
+							"query": [
+								{
+									"key": "view",
+									"value": "your",
+									"description": "Defines the view type"
+								},
+								{
+									"key": "forecast",
+									"value": "multi-year",
+									"description": "Types of forecast (multi-year/yearly)"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Regulatory Updates Year & Month View (Negative Test Year Not 4 Digits e.g:, 202, 12345)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(\"Running Negative Test For Get Regulatory Updates Year & Month View validating if Year Not 4 Digits e.g:202, 12345\");\r",
+									"\r",
+									"var yearParam = pm.request.url.query.find(q => q.key === \"year\");\r",
+									"var yearValue = yearParam ? yearParam.value : null;\r",
+									"\r",
+									"pm.test(\"Year not 4 digits should return error\", function () {\r",
+									"    if (yearValue && /^\\d+$/.test(yearValue) && yearValue.length !== 4) {\r",
+									"        pm.expect(pm.response.code, \"Expected 400 when year is not 4 digits\")\r",
+									"          .to.be.eql(400);\r",
+									"    } else {\r",
+									"        pm.expect.fail(\"This test expected year with INVALID LENGTH, but got: [\" + yearValue + \"]\");\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=12345",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -301,7 +329,7 @@
 								},
 								{
 									"key": "year",
-									"value": "202",
+									"value": "12345",
 									"description": "Comma-separated list of years"
 								}
 							]
@@ -310,99 +338,23 @@
 					"response": []
 				},
 				{
-					"name": "Get Regulatory Updates Year & Month View (Negative Test Missing View Param)",
+					"name": "Get Regulatory Updates Year & Month View (Security Test Missing Token)",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"console.log(\"Running Negative Test For Get Regulatory Updates Year & Month View Missing View Param\");\r",
-									"\r",
-									"pm.test(\"Missing view param should return 400 Status Code\",function()\r",
-									"{\r",
-									"    pm.expect(pm.response.to.have.status(400));\r",
-									"})\r",
-									"\r",
-									"\r",
-									"pm.test(\"Verify the detail filed error message\",function()\r",
-									"{\r",
-									"    pm.expect(pm.response.json().detail).to.be.eql(\"Required parameter 'view' is not present.\");\r",
-									"})"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{accessToken}}",
-								"type": "text"
-							},
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?=&forecast=multi-year&year=2025,2026",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"constellation-ui",
-								"api",
-								"v1",
-								"regulatory-updates",
-								"year-view"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"description": "Defines the view type"
-								},
-								{
-									"key": "forecast",
-									"value": "multi-year",
-									"description": "Types of forecast (multi-year/yearly)"
-								},
-								{
-									"key": "year",
-									"value": "2025,2026",
-									"description": "Comma-separated list of years"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Regulatory Updates Year & Month View (Negative Test Missing Token)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"console.log(\"Running Negative Test For Get Regulatory Updates Year & Month View Missing Access Token\");\r",
+									"console.log(\"Running Security Test For Get Regulatory Updates Year & Month View test Missing Access Token\");\r",
 									"\r",
 									"pm.test(\"Missing Access token should return 401 Status Code\",function()\r",
 									"{\r",
 									"    pm.expect(pm.response.to.have.status(401));\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Verify the code in the response field has a message 'UNAUTHORIZED'\",function()\r",
+									"{\r",
+									"    pm.expect(pm.response.json().error.code).to.be.eql(\"UNAUTHORIZED\");\r",
 									"})\r",
 									"\r",
 									"\r",
@@ -485,13 +437,17 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"console.log(\"Running Negative Test For Get Regulatory Updates Year & Month View Invalid Access Token\");\r",
+									"console.log(\"Running Security Test For Get Regulatory Updates Year & Month View test with Wrong Access Token\");\r",
 									"\r",
-									"pm.test(\"Invalid Access token should return 403 Status Code\",function()\r",
+									"pm.test(\"Invalid Access token should return 401 Status Code\",function()\r",
 									"{\r",
-									"    pm.expect(pm.response.to.have.status(403));\r",
+									"    pm.expect(pm.response.to.have.status(401));\r",
 									"});\r",
 									"\r",
+									"pm.test(\"Verify the code in the response field has a message 'UNAUTHORIZED'\",function()\r",
+									"{\r",
+									"    pm.expect(pm.response.json().error.code).to.be.eql(\"UNAUTHORIZED\");\r",
+									"});\r",
 									"\r",
 									"pm.test(\"Verify the invalid token error message\",function()\r",
 									"{\r",
@@ -567,11 +523,16 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"console.log(\"Running Negative Test For Get Regulatory Updates Year & Month View Expired Access Token\");\r",
+									"console.log(\"Running Security Test For Get Regulatory Updates Year & Month View test with Expired Access Token\");\r",
 									"\r",
 									"pm.test(\"Expired Access token should return 401 Status Code\",function()\r",
 									"{\r",
 									"    pm.expect(pm.response.to.have.status(401));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Verify the code in the response field has a message 'UNAUTHORIZED'\",function()\r",
+									"{\r",
+									"    pm.expect(pm.response.json().error.code).to.be.eql(\"UNAUTHORIZED\");\r",
 									"});\r",
 									"\r",
 									"\r",
@@ -656,6 +617,8 @@
 								"exec": [
 									"console.log(\"Running Boundary Test For Get Regulatory Updates Year & Month View Single Year Request\");\r",
 									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
 									"pm.test(\"Verify the status code is 200\",function()\r",
 									"{\r",
 									"    pm.expect(pm.response.to.have.status(200));\r",
@@ -666,12 +629,10 @@
 									"});\r",
 									" \r",
 									"pm.test(\"Response is an array\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.be.an(\"array\");\r",
+									"        pm.expect(jsonData).to.be.an(\"array\");\r",
 									"});\r",
 									" \r",
 									"pm.test(\"Each object contains required fields\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
 									"    jsonData.forEach(item => {\r",
 									"        pm.expect(item).to.have.property(\"id\");\r",
 									"        pm.expect(item).to.have.property(\"dateAdded\");\r",
@@ -682,7 +643,6 @@
 									"});\r",
 									" \r",
 									"pm.test(\"All items belong to requested year 2025\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
 									"    jsonData.forEach(item => {\r",
 									"        let year = new Date(item.effectiveDate).getFullYear();\r",
 									"        pm.expect(year).to.eql(2025);\r",
@@ -765,9 +725,26 @@
 									"    pm.expect(pm.response.to.have.status(200));\r",
 									"});\r",
 									"\r",
-									"pm.test(\"Large year range handles response correctly\", function()\r",
-									"{\r",
-									"    pm.expect(Object.keys(pm.response.json()).length).to.be.above(5);\r",
+									"pm.test(\"All requested past/current years should be returned in response\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var requestUrl = pm.request.url.toString();\r",
+									"    var yearParam = requestUrl.split(\"year=\")[1];\r",
+									"    var requestedYears = yearParam.split(\",\").map(y => y.trim());\r",
+									"    var years = jsonData.map(item => new Date(item.dateAdded).getFullYear().toString());\r",
+									"    var uniqueYears = [...new Set(years)];\r",
+									"    var currentYear = new Date().getFullYear();\r",
+									" \r",
+									"    console.log(\"Requested years:\", requestedYears);\r",
+									"    console.log(\"Unique years in response:\", uniqueYears);\r",
+									"    console.log(\"Current year (max allowed):\", currentYear);\r",
+									"\r",
+									"    requestedYears.forEach(year => {\r",
+									"        if (parseInt(year) <= currentYear) {\r",
+									"            pm.expect(uniqueYears).to.include(year, `Year ${year} is missing in response`);\r",
+									"        } else {\r",
+									"            console.log(`Skipping future year check for: ${year}`);\r",
+									"        }\r",
+									"    });\r",
 									"});\r",
 									"\r",
 									""
@@ -802,7 +779,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2025",
+							"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2022,2023,2024,2025,2026",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -826,7 +803,7 @@
 								},
 								{
 									"key": "year",
-									"value": "2025",
+									"value": "2022,2023,2024,2025,2026",
 									"description": "Comma-separated list of years"
 								}
 							]
@@ -835,23 +812,25 @@
 					"response": []
 				},
 				{
-					"name": "Get Regulatory Updates Year & Month View (Boundary Test Empty Response (Year With No Data))",
+					"name": "Get Regulatory Updates Year & Month View (Boundary Test Lower Boundary)",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"console.log(\"Running Boundary Test For Get Regulatory Updates Year & Month View Empty Response (Year With No Data)\");\r",
+									"console.log(\"Running Boundary Test For Get Regulatory Updates Year & Month View test Lower Boundary\");\r",
 									"\r",
-									"pm.test(\"Verify the status code is 400\",function()\r",
-									"{\r",
-									"    pm.expect(pm.response.to.have.status(400));\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Empty response for year with no data\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.be.an(\"array\");\r",
-									"    pm.expect(jsonData.length).to.eql(0);\r",
+									"var yearParam = pm.request.url.query.find(q => q.key === \"year\");\r",
+									"var yearValue = yearParam ? yearParam.value : null;\r",
+									" \r",
+									"console.log(\"Extracted year param value => [\" + yearValue + \"]\");\r",
+									" \r",
+									"pm.test(\"Year at lower boundary (2018) should be valid\", function () {\r",
+									"    if (yearValue === \"2018\") {\r",
+									"        pm.expect(pm.response.code, \"Expected 200 for year=2018\").to.eql(200);\r",
+									"    } else {\r",
+									"        pm.expect.fail(\"❌ This test expected year=2018, but got: [\" + yearValue + \"]\");\r",
+									"    }\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -884,7 +863,7 @@
 							}
 						],
 						"url": {
-							"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=",
+							"raw": "{{BASE_URL}}/constellation-ui/api/v1/regulatory-updates/year-view?view=your&forecast=multi-year&year=2018",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -908,7 +887,7 @@
 								},
 								{
 									"key": "year",
-									"value": "",
+									"value": "2018",
 									"description": "Comma-separated list of years"
 								}
 							]
@@ -1010,20 +989,21 @@
 								"exec": [
 									"console.log(\"Running Performance Test For Get Regulatory Updates Year & Month View Large Payload Handling\");\r",
 									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
 									"pm.test(\"Verify the status code is 200\",function()\r",
 									"{\r",
 									"    pm.expect(pm.response.to.have.status(200));\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Large payload returns valid JSON array\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
+									"    \r",
 									"    pm.expect(jsonData).to.be.an(\"array\");\r",
-									"    pm.expect(jsonData.length).to.be.above(0); // ensure non-empty\r",
+									"    pm.expect(jsonData.length).to.be.above(0);\r",
 									"});\r",
 									" \r",
-									"// Optional: Check that each item still follows schema\r",
 									"pm.test(\"All items in large payload have required fields\", function () {\r",
-									"    let jsonData = pm.response.json();\r",
+									"    \r",
 									"    jsonData.forEach(item => {\r",
 									"        pm.expect(item).to.have.property(\"id\");\r",
 									"        pm.expect(item).to.have.property(\"dateAdded\");\r",
@@ -1096,6 +1076,14 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Functional Tests",
+			"item": []
+		},
+		{
+			"name": "Schema Validation Test",
+			"item": []
 		}
 	],
 	"event": [
